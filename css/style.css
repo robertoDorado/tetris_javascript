@@ -1,0 +1,41 @@
+body {
+    background-color: #333;
+    color: #fff;
+    overflow-y: hidden;
+}
+
+.container-score-speed {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 600px;
+    margin: 0 auto;
+}
+
+div {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: monospace;
+    text-align: center;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+.next-piece {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: #111111;
+}
+
+.container-game {
+    display: flex;
+    flex-direction: row;
+    width: 450px;
+    margin: 0 auto;
+    padding-top: 1rem;
+}
