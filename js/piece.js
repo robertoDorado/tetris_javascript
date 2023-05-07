@@ -111,14 +111,6 @@ class Piece {
 
     lock() {
         let tetris = []
-        let confetti = new Confetti('tetris-confetti');
-        confetti.setCount(100);
-        confetti.setSize(1);
-        confetti.setPower(100);
-        confetti.setFade(false);
-        confetti.destroyTarget(true);
-
-        let isTetris = false
 
         for (let currentRow = 0; currentRow < this.activePiece.length; currentRow++) {
             for (let currentCol = 0; currentCol < this.activePiece.length; currentCol++) {
@@ -151,15 +143,11 @@ class Piece {
                 }
 
                 if (tetris.length >= 4) {
-                    isTetris = true
+                    score += 20
                 }
 
                 updateRollAndScore(currentRow)
             }
-        }
-
-        if (isTetris) {
-            document.getElementById("tetris-confetti").click()
         }
 
         drawBoard()
