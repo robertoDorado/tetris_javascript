@@ -12,8 +12,8 @@ class Piece {
     }
 
     fill(color) {
-        for(let currentRow = 0; currentRow < this.activePiece.length; currentRow++) {
-            for(let currentCol = 0; currentCol < this.activePiece.length; currentCol++) {
+        for (let currentRow = 0; currentRow < this.activePiece.length; currentRow++) {
+            for (let currentCol = 0; currentCol < this.activePiece.length; currentCol++) {
                 if (this.activePiece[currentRow][currentCol]) {
                     drawSquare(this.x + currentRow, this.y + currentCol, color)
                 }
@@ -24,7 +24,7 @@ class Piece {
     draw() {
         this.fill(this.color)
     }
-    
+
     undraw() {
         this.fill(defaultColor)
     }
@@ -46,7 +46,7 @@ class Piece {
     }
 
     rotate() {
-        let nextPattern = this.piece[(this.pieceN + 1) % this.piece.length] 
+        let nextPattern = this.piece[(this.pieceN + 1) % this.piece.length]
         let kick = 0
 
         if (this.collision(0, 0, nextPattern)) {
@@ -69,12 +69,12 @@ class Piece {
     moveDown() {
         if (!this.collision(0, 1, this.activePiece)) {
             this.undraw()
-            this.y++;
+            this.y += 1;
             this.draw()
             return;
         }
         this.lock()
-        
+
         if (pieces.length > 0) {
             piece = nextPiece
             nextPiece = pieces.pop()
@@ -110,6 +110,16 @@ class Piece {
     }
 
     lock() {
+        let tetris = []
+        let confetti = new Confetti('tetris-confetti');
+        confetti.setCount(100);
+        confetti.setSize(1);
+        confetti.setPower(100);
+        confetti.setFade(false);
+        confetti.destroyTarget(true);
+
+        let isTetris = false
+
         for (let currentRow = 0; currentRow < this.activePiece.length; currentRow++) {
             for (let currentCol = 0; currentCol < this.activePiece.length; currentCol++) {
                 if (!this.activePiece[currentRow][currentCol]) {
@@ -134,12 +144,24 @@ class Piece {
                 const currentSquareColor = board[currentRow][currentCol]
                 isRollFull = isRollFull && (currentSquareColor != defaultColor)
             }
-            
+
             if (isRollFull) {
+                if (tetris.indexOf(currentRow) == -1) {
+                    tetris.push(currentRow)
+                }
+
+                if (tetris.length >= 4) {
+                    isTetris = true
+                }
+
                 updateRollAndScore(currentRow)
             }
         }
-        
+
+        if (isTetris) {
+            document.getElementById("tetris-confetti").click()
+        }
+
         drawBoard()
     }
 }
